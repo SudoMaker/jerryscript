@@ -98,7 +98,7 @@ set(SOURCE_UNIT_TEST_MAIN_MODULES
 )
 
 # jerry_heap_stats_t.size == 0 if system allocator is used.
-if(JERRY_SYSTEM_ALLOCATOR)
+if(JERRY_SYSTEM_ALLOCATOR OR JERRY_CUSTOM_ALLOCATOR)
   list(REMOVE_ITEM SOURCE_UNIT_TEST_MAIN_MODULES ${CMAKE_CURRENT_SOURCE_DIR}/test-mem-stats.c)
 endif()
 

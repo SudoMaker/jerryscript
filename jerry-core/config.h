@@ -422,6 +422,19 @@
 #endif /* !defined (JERRY_SYSTEM_ALLOCATOR) */
 
 /**
+ * Enable/Disable usage of custom allocator.
+ *
+ * Allowed values:
+ *  0: Disable usage of custom allocator.
+ *  1: Enable usage of custom allocator.
+ *
+ * Default value: 0
+ */
+#ifndef JERRY_CUSTOM_ALLOCATOR
+#define JERRY_CUSTOM_ALLOCATOR 0
+#endif /* !defined (JERRY_CUSTOM_ALLOCATOR) */
+
+/**
  * Enables/disables the unicode case conversion in the engine.
  * By default Unicode case conversion is enabled.
  */
@@ -649,6 +662,9 @@
 #if (JERRY_SYSTEM_ALLOCATOR != 0) && (JERRY_SYSTEM_ALLOCATOR != 1)
 #error "Invalid value for 'JERRY_SYSTEM_ALLOCATOR' macro."
 #endif /* (JERRY_SYSTEM_ALLOCATOR != 0) && (JERRY_SYSTEM_ALLOCATOR != 1) */
+#if (JERRY_CUSTOM_ALLOCATOR != 0) && (JERRY_CUSTOM_ALLOCATOR != 1)
+#error "Invalid value for 'JERRY_CUSTOM_ALLOCATOR' macro."
+#endif /* (JERRY_CUSTOM_ALLOCATOR != 0) && (JERRY_CUSTOM_ALLOCATOR != 1) */
 #if (JERRY_UNICODE_CASE_CONVERSION != 0) && (JERRY_UNICODE_CASE_CONVERSION != 1)
 #error "Invalid value for 'JERRY_UNICODE_CASE_CONVERSION' macro."
 #endif /* (JERRY_UNICODE_CASE_CONVERSION != 0) && (JERRY_UNICODE_CASE_CONVERSION != 1) */

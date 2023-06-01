@@ -226,6 +226,7 @@ def generate_build_options(arguments):
     build_options_append('JERRY_SNAPSHOT_EXEC', arguments.snapshot_exec)
     build_options_append('JERRY_SNAPSHOT_SAVE', arguments.snapshot_save)
     build_options_append('JERRY_SYSTEM_ALLOCATOR', arguments.system_allocator)
+    build_options_append('JERRY_CUSTOM_ALLOCATOR', arguments.custom_allocator)
     build_options_append('JERRY_VALGRIND', arguments.valgrind)
     build_options_append('JERRY_VM_HALT', arguments.vm_exec_stop)
     build_options_append('JERRY_VM_THROW', arguments.vm_throw)

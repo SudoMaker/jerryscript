@@ -128,7 +128,7 @@ jcontext_take_exception (void)
  */
 jerry_context_t jerry_global_context;
 
-#if !JERRY_SYSTEM_ALLOCATOR
+#if !JERRY_SYSTEM_ALLOCATOR && !JERRY_CUSTOM_ALLOCATOR
 
 /**
  * Check size of heap is corresponding to configuration
@@ -141,7 +141,7 @@ JERRY_STATIC_ASSERT (sizeof (jmem_heap_t) <= JMEM_HEAP_SIZE,
  */
 jmem_heap_t jerry_global_heap JERRY_ATTR_ALIGNED (JMEM_ALIGNMENT) JERRY_ATTR_GLOBAL_HEAP;
 
-#endif /* !JERRY_SYSTEM_ALLOCATOR */
+#endif /* !JERRY_SYSTEM_ALLOCATOR && !JERRY_CUSTOM_ALLOCATOR */
 
 #endif /* !JERRY_EXTERNAL_CONTEXT */
 

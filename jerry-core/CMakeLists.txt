@@ -37,6 +37,7 @@ set(JERRY_REGEXP_DUMP_BYTE_CODE     OFF          CACHE BOOL   "Enable regexp byt
 set(JERRY_SNAPSHOT_EXEC             OFF          CACHE BOOL   "Enable executing snapshot files?")
 set(JERRY_SNAPSHOT_SAVE             OFF          CACHE BOOL   "Enable saving snapshot files?")
 set(JERRY_SYSTEM_ALLOCATOR          OFF          CACHE BOOL   "Enable system allocator?")
+set(JERRY_CUSTOM_ALLOCATOR          OFF          CACHE BOOL   "Enable custom allocator?")
 set(JERRY_VALGRIND                  OFF          CACHE BOOL   "Enable Valgrind support?")
 set(JERRY_VM_HALT                   OFF          CACHE BOOL   "Enable VM execution stop callback?")
 set(JERRY_VM_THROW                  OFF          CACHE BOOL   "Enable VM throw callback?")
@@ -46,10 +47,10 @@ set(JERRY_STACK_LIMIT               "(0)"        CACHE STRING "Maximum stack usa
 set(JERRY_GC_MARK_LIMIT             "(8)"        CACHE STRING "Maximum depth of recursion during GC mark phase")
 
 # Option overrides
-if(JERRY_SYSTEM_ALLOCATOR)
+if(JERRY_SYSTEM_ALLOCATOR OR JERRY_CUSTOM_ALLOCATOR)
   set(JERRY_CPOINTER_32_BIT ON)
 
-  set(JERRY_CPOINTER_32_BIT_MESSAGE " (FORCED BY SYSTEM ALLOCATOR)")
+  set(JERRY_CPOINTER_32_BIT_MESSAGE " (FORCED BY SYSTEM/CUSTOM ALLOCATOR)")
 endif()
 
 if (JERRY_GLOBAL_HEAP_SIZE GREATER 512)
@@ -638,6 +639,9 @@ jerry_add_define01(JERRY_SNAPSHOT_SAVE)
 
 # Enable system allocator
 jerry_add_define01(JERRY_SYSTEM_ALLOCATOR)
+
+# Enable custom allocator
+jerry_add_define01(JERRY_CUSTOM_ALLOCATOR)
 
 # Valgrind
 jerry_add_define01(JERRY_VALGRIND)

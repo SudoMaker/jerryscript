@@ -171,6 +171,12 @@ jmem_finalize (void)
   jmem_heap_finalize ();
 } /* jmem_finalize */
 
+#if JERRY_CUSTOM_ALLOCATOR
+extern uint32_t jerry_custom_allocator_compress_pointer(const void *p);
+extern void *jerry_custom_allocator_decompress_pointer(uint32_t cp);
+#endif
+
+
 /**
  * Compress pointer
  *
@@ -179,6 +185,9 @@ jmem_finalize (void)
 extern inline jmem_cpointer_t JERRY_ATTR_PURE JERRY_ATTR_ALWAYS_INLINE
 jmem_compress_pointer (const void *pointer_p) /**< pointer to compress */
 {
+#if JERRY_CUSTOM_ALLOCATOR
+  return jerry_custom_allocator_compress_pointer(pointer_p);
+#else
   JERRY_ASSERT (pointer_p != NULL);
   JERRY_ASSERT (jmem_is_heap_pointer (pointer_p));
 
@@ -203,6 +212,7 @@ jmem_compress_pointer (const void *pointer_p) /**< pointer to compress */
 #endif /* ECMA_VALUE_CAN_STORE_UINTPTR_VALUE_DIRECTLY && JERRY_CPOINTER_32_BIT */
 
   return (jmem_cpointer_t) uint_ptr;
+#endif
 } /* jmem_compress_pointer */
 
 /**
@@ -213,6 +223,9 @@ jmem_compress_pointer (const void *pointer_p) /**< pointer to compress */
 extern inline void *JERRY_ATTR_PURE JERRY_ATTR_ALWAYS_INLINE
 jmem_decompress_pointer (uintptr_t compressed_pointer) /**< pointer to decompress */
 {
+#if JERRY_CUSTOM_ALLOCATOR
+  return jerry_custom_allocator_decompress_pointer((uint32_t)compressed_pointer);
+#else
   JERRY_ASSERT (compressed_pointer != JMEM_CP_NULL);
 
   uintptr_t uint_ptr = compressed_pointer;
@@ -231,4 +244,5 @@ jmem_decompress_pointer (uintptr_t compressed_pointer) /**< pointer to decompres
 #endif /* ECMA_VALUE_CAN_STORE_UINTPTR_VALUE_DIRECTLY && JERRY_CPOINTER_32_BIT */
 
   return (void *) uint_ptr;
+#endif
 } /* jmem_decompress_pointer */

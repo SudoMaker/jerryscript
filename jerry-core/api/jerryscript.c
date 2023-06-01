@@ -174,7 +174,7 @@ jerry_init (jerry_init_flag_t flags) /**< combination of Jerry flags */
   jerry_context_t *context_p = &JERRY_CONTEXT_STRUCT;
   memset (context_p, 0, sizeof (jerry_context_t));
 
-#if JERRY_EXTERNAL_CONTEXT && !JERRY_SYSTEM_ALLOCATOR
+#if JERRY_EXTERNAL_CONTEXT && !JERRY_SYSTEM_ALLOCATOR && !JERRY_CUSTOM_ALLOCATOR
   uint32_t heap_start_offset = JERRY_ALIGNUP (sizeof (jerry_context_t), JMEM_ALIGNMENT);
   uint8_t *heap_p = ((uint8_t *) context_p) + heap_start_offset;
   uint32_t heap_size = JERRY_ALIGNDOWN (total_size - heap_start_offset, JMEM_ALIGNMENT);
@@ -183,7 +183,7 @@ jerry_init (jerry_init_flag_t flags) /**< combination of Jerry flags */
 
   context_p->heap_p = (jmem_heap_t *) heap_p;
   context_p->heap_size = heap_size;
-#endif /* JERRY_EXTERNAL_CONTEXT && !JERRY_SYSTEM_ALLOCATOR */
+#endif /* JERRY_EXTERNAL_CONTEXT && !JERRY_SYSTEM_ALLOCATOR && !JERRY_CUSTOM_ALLOCATOR */
 
   JERRY_CONTEXT (jerry_init_flags) = flags;
 
